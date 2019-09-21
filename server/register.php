@@ -10,22 +10,22 @@
 	$identifyer .=",";
 	$identifyer .= $password;
 	$identifyer .=",";
-	echo $password;
+	//echo $password;
 	
 	//check if the input exist
 	$exist = 0;
+
+
+
            //read the file line by line
-          $file = fopen("database.txt","r");
+          $file = fopen("../database/database.txt","r");
            while(!feof($file))  {
                  // get a line without the last “newline” character
 				$line = trim(fgets($file));
-				list($usernameline, $passwordline) = explode(",",$line);
+                list($usernameline,$passwordline) = array_pad(explode(',', $line),2,null);
 				//print $a
-	
-
 				//compare the content of the input and the line
                if($usernameline == $input ){
-				echo "The user already exists!";
 			$exist = 1;
 			break;
 	     }			
@@ -34,15 +34,21 @@
 
 	
 	if($exist == 1){
-		echo "The input  exists! <br/><br/>Please enter another one via <a href='register.html'>register.html</a>";
+		echo "The input  exists! <br/><br/>Please enter another one via <a href='../client/register.html'>register.html</a>";
 	}else{
 		//open a file named "database.txt"
-		$file = fopen("database.txt","a");
+		$file = fopen("../database/database.txt","a");
 		//insert this input (plus a newline) into the database.txt
 		fwrite($file,$identifyer."\n");
 		//close the "$file"
 		fclose($file);
-		echo "The input is added to the database.txt. <br/><br/>Please try to enter the same input again via <a href='register.html'>register.html</a>";
+		echo "<h1>Welcome  $input!!</h1>
+		<br><br/>
+		You are now registered!<br></br>
+		<a href='../client/console.html'> Go to Console</a>
+		Try registering again with the same ID and see what it says
+		<a href='../client/register.html'>register.html</a>";
+
 	}
 ?>
 
